@@ -51,17 +51,12 @@ public class TestQuestionsAnswers {
         steps.clickCookieButton(); //плашку куки закрываем
         steps.scrollToQuestions(); //скролл до блока
 
-        String actualAnswer = ""; //переменная для ответа
 
-        if (index == 0) { steps.clickQuestion0(); actualAnswer = steps.getAnswerText0(); }
-        else if (index == 1) { steps.clickQuestion1(); actualAnswer = steps.getAnswerText1(); }
-        else if (index == 2) { steps.clickQuestion2(); actualAnswer = steps.getAnswerText2(); }
-        else if (index == 3) { steps.clickQuestion3(); actualAnswer = steps.getAnswerText3(); }
-        else if (index == 4) { steps.clickQuestion4(); actualAnswer = steps.getAnswerText4(); }
-        else if (index == 5) { steps.clickQuestion5(); actualAnswer = steps.getAnswerText5(); }
-        else if (index == 6) { steps.clickQuestion6(); actualAnswer = steps.getAnswerText6(); }
-        else if (index == 7) { steps.clickQuestion7(); actualAnswer = steps.getAnswerText7(); }
+    //Методы: клик на вопрос,ответ - сравнение
+        steps.clickQuestion(index);
+        String actualAnswer = steps.getAnswerText(index);
 
-        assertEquals("Текст ответа под индексом " + index + " не совпал!", expectedAnswer, actualAnswer);
+        assertEquals("Текст ответа с индексом " + index + " не совпал!", expectedAnswer, actualAnswer);
     }
+
 }

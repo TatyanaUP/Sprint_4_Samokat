@@ -14,7 +14,7 @@ public class LocatorsAndMethodsQuestionsAnswers {
     //Кнопки на странице
     private final By topOrderButton = By.xpath(".//div[contains(@class, 'Header_Header')]//button[text()='Заказать']");  //кнопка заказать в шапке(верхний блок)
     private final By bottomOrderButton = By.xpath("(.//button[text()='Заказать'])[2]");//кнопка заказать в блоке как это работает(3 блок)
-    private final By cookieButton = By.id("rcc-confirm-btn"); //кнопка куки "да все привыкли"
+    private final By cookieButton = By.id("rcc-confirm-button"); //кнопка куки "да все привыкли"
     private final By accordionSection = By.className("accordion"); //блок вопросов
 
     //Локаторы для каждого вопроса(пронумеруем по индексам кнопок):
@@ -51,73 +51,21 @@ public class LocatorsAndMethodsQuestionsAnswers {
 
     public void scrollToQuestions() {
         WebElement element = driver.findElement(accordionSection);
-        ((JavascriptExecutor) driver).executeScript("arguments.scrollIntoView();", element); //скролл до блока вопросов/ответов
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", element); //скролл до блока вопросов/ответов
     }
 
-    // Методы, раскрывающие каждый вопрос
-    public void clickQuestion0() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(question0)).click();
+    // Метод для клика по вопросу
+    public void clickQuestion(int index) {
+        By questionLocator = By.id("accordion__heading-" + index);
+        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(questionLocator)).click();
     }
 
-    public void clickQuestion1() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(question1)).click();
-    }
 
-    public void clickQuestion2() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(question2)).click();
-    }
-
-    public void clickQuestion3() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(question3)).click();
-    }
-
-    public void clickQuestion4() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(question4)).click();
-    }
-
-    public void clickQuestion5() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(question5)).click();
-    }
-
-    public void clickQuestion6() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(question6)).click();
-    }
-
-    public void clickQuestion7() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(question7)).click();
-    }
 
     // Методы, получающие текст ответов:
-    public String getAnswerText0() {
-        return new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(answer0)).getText();
-    }
-
-    public String getAnswerText1() {
-        return new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(answer1)).getText();
-    }
-
-    public String getAnswerText2() {
-        return new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(answer2)).getText();
-    }
-
-    public String getAnswerText3() {
-        return new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(answer3)).getText();
-    }
-
-    public String getAnswerText4() {
-        return new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(answer4)).getText();
-    }
-
-    public String getAnswerText5() {
-        return new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(answer5)).getText();
-    }
-
-    public String getAnswerText6() {
-        return new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(answer6)).getText();
-    }
-
-    public String getAnswerText7() {
-        return new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(answer7)).getText();
+    public String getAnswerText(int index) {
+        By answerLocator = By.id("accordion__panel-" + index);
+        return new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(answerLocator)).getText();
     }
 
     // Методы кнопок заказа
@@ -131,6 +79,6 @@ public class LocatorsAndMethodsQuestionsAnswers {
         WebElement element = driver.findElement(bottomOrderButton); // кнопка заказать
         new Actions(driver).moveToElement(element).perform(); //код для наведения фокуса
         //ждем и нажимаем кнопку
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element); //нажимаем кнопку
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);//нажимаем кнопку
     }
 }
